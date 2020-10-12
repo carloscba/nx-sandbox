@@ -1,10 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Task, TaskStatus } from './task.model';
 import { CreateTaskDTO } from './dto/create-task-dto';
+import { TaskFactoryPG, AbstractTaskRepository, Task, TaskStatus } from '@nx-sandbox/tasks';
 
 @Injectable()
 export class TasksService {
-    private tasks: Task[] = [];
+    private tasks: Task[];
+    private taskFactory: AbstractTaskRepository;
+
+    constructor() {
+        const factory = new TaskFactoryPG();
+        this.taskFactory = factory.createTaskRepository();
+    }
 
     createTask(createTaskDTO: CreateTaskDTO): Task {
         const { title, description } = createTaskDTO;
@@ -14,11 +20,12 @@ export class TasksService {
             description,
             status: TaskStatus.OPEN,
         };
-        this.tasks.push(task);
-        return task;
+        
+        return this.taskFactory.createTask(task);
     }
 
     getTasks() {
+        this.tasks = this.taskFactory.getTasks();
         return this.tasks;
     }
 
