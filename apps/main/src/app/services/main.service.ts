@@ -14,7 +14,7 @@ export class MainService {
     private factoryService: FactoryService
   ) {
     this.currentService = this.factoryService.getService();
-    
+    console.log(this.currentService);
     console.log(this.currentService.getData());
   }
 }
