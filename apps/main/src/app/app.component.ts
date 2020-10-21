@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MainService } from './services/main.service'
 
 @Component({
   selector: 'nx-sandbox-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'main';
+
+  constructor(private mainService: MainService) {
+
+  }
 }
