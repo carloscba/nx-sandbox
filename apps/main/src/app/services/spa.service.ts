@@ -14,7 +14,8 @@ export class SpaService implements ServiceBase {
     return this.data;
   }
 
-  setData():string[] {
+  setData(data: string):string[] {
+    this.data.push(data)
     return this.data;
-  }   
+  } 
 }
